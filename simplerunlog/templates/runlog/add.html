@@ -1,0 +1,32 @@
+<html>
+<head>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+  <script src="{{ STATIC_URL }}js/jquery-ui-1.8.16.custom.min.js"></script>
+<script>
+$(document).ready(function() {
+        $("#id_date").datepicker({dateFormat:'yy-mm-dd'});
+        });
+</script>
+</head>
+<body>
+    {% if form.non_field_errors %}
+        <ul>
+            {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="/add/" method="post">
+        {% csrf_token %}
+        <label for="id_date">Date of Run:</label> <input type="text" name="date" id="id_date" /></p>
+        <p><label for="id_distance">Distance:</label> <input type="text" name="distance" id="id_distance" /></p>
+        <p><label for="id_hours">Time:</label> <input type="text" name="hours" id="id_hours" value="0" />:
+        <input type="text" name="minutes" id="id_minutes" value = "0"/>:
+        <input type="text" name="seconds" id="id_seconds" value="0"/></p>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+

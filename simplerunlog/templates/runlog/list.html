@@ -1,0 +1,23 @@
+<html>
+<body>
+<h1>Simple Run Log</h1>
+<table border = "0">
+{% for run in object_list %}
+<tr>
+<td>
+{{ run.date }}
+</td>
+<td>
+{{ run.distance }}
+</td>
+<td>
+{{ run.hours }}:{{ run.minutes }}:{{ run.seconds }}
+</td>
+<td>
+<a href="/delete/{{ run.id }}">delete</a>
+</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>
