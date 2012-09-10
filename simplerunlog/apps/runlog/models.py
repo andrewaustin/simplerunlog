@@ -1,16 +1,19 @@
-from django.db import models
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.db import models
 
 class Run(models.Model):
     """Stores information about a particular run.
 
-    :attr date date: The date of the run
-    :attr float distance: The length of the run
+    :attr User User: The user who performed the run.
+    :attr date date: The date of the run.
+    :attr float distance: The length of the run.
     :attr int hours: The number of hours the run took.
     :attr int minutes: The number of minutes the run took.
     :attr int seconds: The number of secondst the run took.
     """
 
+    user = models.ForeignKey(User)
     date = models.DateField('Date of Run')
     distance = models.FloatField('Distance')
     hours = models.IntegerField('Hours')
