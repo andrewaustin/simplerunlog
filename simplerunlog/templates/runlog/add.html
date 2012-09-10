@@ -1,15 +1,14 @@
-<html>
-<head>
-<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-  <script src="{{ STATIC_URL }}js/jquery-ui-1.8.16.custom.min.js"></script>
+{% extends "base.html" %}
+
+{% block title %}simple run log - Add Run{% endblock%}
+
+{% block content %}
+<center><a href="/add/">Add Run</a> <a href="/runs/">List Runs</a></center>
 <script>
 $(document).ready(function() {
         $("#id_date").datepicker({dateFormat:'yy-mm-dd'});
         });
 </script>
-</head>
-<body>
     {% if form.non_field_errors %}
         <ul>
             {% for error in form.non_field_errors %}
@@ -27,6 +26,4 @@ $(document).ready(function() {
         <input type="text" name="seconds" id="id_seconds" value="0"/></p>
         <input type="submit" value="Submit">
     </form>
-</body>
-</html>
-
+{% endblock %}

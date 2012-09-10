@@ -1,6 +1,9 @@
-<html>
-<body>
-<h1>Simple Run Log</h1>
+{% extends "base.html" %}
+
+{% block title %}simple run log - List Runs{% endblock %}
+
+{% block content %}
+<center><a href="/add/">Add Run</a> <a href="/runs/">List Runs</a></center>
 <table border = "0">
 {% for run in object_list %}
 <tr>
@@ -19,5 +22,4 @@
 </tr>
 {% endfor %}
 </table>
-</body>
-</html>
+{% endblock %}
