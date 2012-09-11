@@ -9,7 +9,7 @@ from apps.runlog.forms import addRunForm
 from apps.runlog.models import Run
 
 def index(request):
-    if request.user:
+    if request.user.is_authenticated():
         return HttpResponseRedirect('/dashboard/')
     return render(request, 'runlog/index.html', {})
 
