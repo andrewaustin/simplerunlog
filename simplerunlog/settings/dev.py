@@ -70,3 +70,10 @@ DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
 ########## END TOOLBAR CONFIGURATION
+
+########## DJANGO COVERAGE
+# See: https://github.com/kmike/django-coverage
+INSTALLED_APPS += (
+            'django_coverage',
+)
+
