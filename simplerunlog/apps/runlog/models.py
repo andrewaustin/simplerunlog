@@ -24,9 +24,8 @@ class Run(models.Model):
         """Provides basic validation that minutes and seconds must be less than
         60.
 
-        :raises ValidationError: Error occurs if minutes or seconds > 60.
+        :raises ValidationError: Error occurs if minutes or seconds > 59.
         """
-
         if self.seconds >= 60:
             raise ValidationError("Seconds must be less than 60")
         if self.minutes >= 60:
