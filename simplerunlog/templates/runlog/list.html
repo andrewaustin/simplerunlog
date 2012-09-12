@@ -3,7 +3,7 @@
 {% block title %}simple run log - List Runs{% endblock %}
 
 {% block content %}
-<center><a href="/add/">Add Run</a> <a href="/runs/">List Runs</a></center>
+<center><a href="{% url apps.runlog.views.add %}">Add Run</a> <a href="{% url list %}">List Runs</a></center>
 <table border = "0">
 {% for run in object_list %}
 <tr>

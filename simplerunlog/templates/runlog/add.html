@@ -3,7 +3,7 @@
 {% block title %}simple run log - Add Run{% endblock%}
 
 {% block content %}
-<center><a href="/add/">Add Run</a> <a href="/runs/">List Runs</a></center>
+<center><a href="{% url apps.runlog.views.add %}">Add Run</a> <a href="{% url list %}">List Runs</a></center>
 <script>
 $(document).ready(function() {
         $("#id_date").datepicker({dateFormat:'yy-mm-dd'});
