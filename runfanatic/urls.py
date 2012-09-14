@@ -12,6 +12,7 @@ urlpatterns = patterns('apps.runlog.views',
             template_name ='runlog/list.html'), name='list'),
     (r'^add/$', 'add'),
     (r'^delete/(\d+)$', 'delete'),
+    (r'^calendar/$', 'runcal'),
 )
 
 urlpatterns += patterns('',

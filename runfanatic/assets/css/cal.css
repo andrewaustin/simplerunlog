@@ -1,0 +1,29 @@
+table.month {
+    border-width: 1px;
+}
+
+table.month td {
+    border: 1px solid #484848;
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+}
+
+table.month th {
+    border: 1px solid #484848;
+    overflow: hidden;
+    width: 100px;
+    height: 25px;
+    background: #A0A0A0;
+}
+
+table.month td.today {
+    background: #99FF99;
+}
+
+table.month td div.day {
+    position:relative;
+    top:-35px;
+    left:80px;
+    color: #808080;
+}

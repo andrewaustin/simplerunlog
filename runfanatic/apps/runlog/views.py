@@ -4,9 +4,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
+from django.utils.safestring import mark_safe
 
 from apps.runlog.forms import addRunForm
 from apps.runlog.models import Run
+from apps.runlog.cal import RunCalendar
 
 def index(request):
     if request.user.is_authenticated():
@@ -46,6 +48,18 @@ def dashboard(request):
         'today': today, 'weekly_milage' : weekly_milage, 'monthly_milage': monthly_milage, 'yearly_milage' : yearly_milage,
         'days_run_week' : days_run_week, 'six_week_avg' : six_week_avg
         })
+
+@login_required
+def runcal(request):
+    """View that displays an individuals run calendar. """
+
+    cal = RunCalendar()
+    now = datetime.datetime.now()
+
+    cal_html = cal.formatmonth(now.year, now.month)
+
+    return render(request, 'runlog/calendar.html', { 'calendar' :
+        mark_safe(cal_html) })
 
 @login_required
 def add(request):
