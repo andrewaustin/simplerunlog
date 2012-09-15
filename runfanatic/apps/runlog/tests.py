@@ -6,6 +6,7 @@ from django.test import TestCase
 from django.test.client import Client
 
 from apps.runlog.models import Run
+from apps.runlog.models import UserProfile
 
 class ModelTest(TestCase):
     """Class for testing models in the runlog app."""
@@ -32,6 +33,7 @@ class ModelTest(TestCase):
         """Destroy any created db objects."""
         User.objects.all().delete()
         Run.objects.all().delete()
+        UserProfile.objects.all().delete()
 
 class ViewsTest(TestCase):
     """Class for testing views in the runlog app."""
@@ -150,4 +152,5 @@ class ViewsTest(TestCase):
         """Destroy any created db objects."""
         User.objects.all().delete()
         Run.objects.all().delete()
+        UserProfile.objects.all().delete()
         self.c.logout()
