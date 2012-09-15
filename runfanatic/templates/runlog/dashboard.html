@@ -51,5 +51,32 @@
     });
 </script>
 <a class='ajax' href="/add/" title="Add Run">Add Run</a></p>
+<table id="hor-zebra" border = "0">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Time</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+{% for run in recent_runs %}
+<tr class="{% cycle 'even' 'odd' %}">
+<td>
+{{ run.date }}
+</td>
+<td>
+{{ run.distance }}
+</td>
+<td>
+{{ run.hours }}:{{ run.minutes }}:{{ run.seconds }}
+</td>
+<td>
+<a href="/delete/{{ run.id }}">delete</a>
+</td>
+</tr>
+{% endfor %}
+</table>
+
 </center>
 {% endblock %}

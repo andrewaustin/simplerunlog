@@ -44,9 +44,12 @@ def dashboard(request):
     else:
         six_week_avg = 0
 
+    recent_runs = Run.objects.filter(user=request.user).order_by('-date')[:10]
+
     return render(request, 'runlog/dashboard.html', {
         'today': today, 'weekly_milage' : weekly_milage, 'monthly_milage': monthly_milage, 'yearly_milage' : yearly_milage,
-        'days_run_week' : days_run_week, 'six_week_avg' : six_week_avg
+        'days_run_week' : days_run_week, 'six_week_avg' : six_week_avg,
+        'recent_runs' : recent_runs,
         })
 
 @login_required
