@@ -53,9 +53,9 @@ def dashboard(request):
 def runcal(request):
     """View that displays an individuals run calendar. """
 
-    cal = RunCalendar()
     now = datetime.datetime.now()
-
+    month_runs = Run.objects.filter(user=request.user, date__month=now.month)
+    cal = RunCalendar(month_runs)
     cal_html = cal.formatmonth(now.year, now.month)
 
     return render(request, 'runlog/calendar.html', { 'calendar' :

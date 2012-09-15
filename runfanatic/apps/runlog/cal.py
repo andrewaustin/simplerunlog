@@ -5,26 +5,25 @@ from itertools import groupby
 from django.utils.html import conditional_escape as esc
 
 class RunCalendar(HTMLCalendar):
-    def __init__(self):
-    #def __init__(self, workouts):
+
+    def __init__(self, runs):
         super(RunCalendar, self).__init__()
-        #self.workouts = self.group_by_day(workouts)
+        self.runs = self.group_by_day(runs)
 
     def formatday(self, day, weekday):
         if day != 0:
             cssclass = self.cssclasses[weekday]
             if date.today() == date(self.year, self.month, day):
                 cssclass += ' today'
-            #if day in self.workouts:
-            #    cssclass += ' filled'
-            #    body = ['<ul>']
-            #    for workout in self.workouts[day]:
-            #        body.append('<li>')
-            #        body.append('<a href="%s">' % workout.get_absolute_url())
-            #        body.append(esc(workout.title))
-            #        body.append('</a></li>')
-            #    body.append('</ul>')
-            #    return self.day_cell(cssclass, '%d %s' % (day, ''.join(body)))
+            if day in self.runs:
+                cssclass += ' filled'
+                body = ''
+                for run in self.runs[day]:
+                    body += '<span class="run">'
+                    body += esc(run.distance) + ' mi. ('
+                    body += esc(run.hours) + ':' + esc(run.minutes) + ':' + esc(run.seconds)
+                    body += ')</span>'
+                return self.day_cell(cssclass, day, body)
             return self.day_cell(cssclass, day, '')
         return self.day_cell('noday', '&nbsp;', '')
 
@@ -32,11 +31,11 @@ class RunCalendar(HTMLCalendar):
         self.year, self.month = year, month
         return super(RunCalendar, self).formatmonth(year, month)
 
-    #def group_by_day(self, workouts):
-    #    field = lambda workout: workout.performed_at.day
-    #    return dict(
-    #        [(day, list(items)) for day, items in groupby(workouts, field)]
-    #    )
+    def group_by_day(self, runs):
+        field = lambda run: run.date.day
+        return dict(
+            [(day, list(items)) for day, items in groupby(runs, field)]
+        )
 
     def day_cell(self, cssclass, day, body):
         return '<td class="%s"><div class="day">%s</div>%s</td>' % (cssclass, day, body)
