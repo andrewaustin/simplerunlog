@@ -3,10 +3,17 @@
 {% block title %}List Runs{% endblock %}
 
 {% block content %}
-<center><a href="{% url apps.runlog.views.add %}">Add Run</a> <a href="{% url list %}">List Runs</a></center>
-<table border = "0">
+<table id="hor-zebra" border = "0">
+    <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Time</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
 {% for run in object_list %}
-<tr>
+<tr class="{% cycle 'even' 'odd' %}">
 <td>
 {{ run.date }}
 </td>

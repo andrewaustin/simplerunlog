@@ -1,7 +1,11 @@
-{% extends "base.html" %}
-
-{% block title %}Run Fanatic{% endblock%}
-
-{% block content %}
-<a href="{% url django.contrib.auth.views.login %}">Login</a>
-{% endblock %}
+<html>
+    <head>
+        <title>Run Fanatic</title>
+    </head>
+    <body>
+        <h1>run fanatic</h1><h5> the runlog for serious runners</h5>
+        <hr/>
+        <a href="{% url django.contrib.auth.views.login %}">Login</a>
+        <hr/>
+    </body>
+</html>
