@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.signals import post_save
 
 class Run(models.Model):
     """Stores information about a particular run.
@@ -31,3 +32,16 @@ class Run(models.Model):
         if self.minutes >= 60:
             raise ValidationError("Minutes must be less than 60")
 
+class UserProfile(models.Model):
+    """Stores user profile information and settings.
+
+    :attr User User: The user who is associated with the profile.
+    """
+
+    user = models.OneToOneField(User)
+
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(create_user_profile, sender=User)
