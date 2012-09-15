@@ -10,10 +10,10 @@ Things To Do
     * Method to select the month
 * Dashboard
     * /runs/ should be in the dashboard
-* Add run should be modal dialog (facebox)
-* Extend user model to include things like name, address, etc
-    * https://docs.djangoproject.com/en/1.4/topics/auth/#storing-additional-information-about-users
+* Add run should be modal dialog
+    * Clean up the view
 * Make a /user/username page
+* Timezone disparity between local time and server time.
 * grab gps data from Garmin
     * http://developer.garmin.com/
 * integrate with facebook when posting runs
