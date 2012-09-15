@@ -7,6 +7,7 @@ table.month td {
     overflow: hidden;
     width: 100px;
     height: 100px;
+    position: relative;
 }
 
 table.month th {
@@ -22,8 +23,8 @@ table.month td.today {
 }
 
 table.month td div.day {
-    position:relative;
-    top:-35px;
-    left:80px;
+    position:absolute;
+    top:0px;
+    right:5px;
     color: #808080;
 }
