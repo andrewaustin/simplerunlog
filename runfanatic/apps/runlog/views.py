@@ -1,14 +1,16 @@
 import datetime
 
 from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
-from django.views.generic import ListView
+from django.utils.decorators import method_decorator
+from django.views.generic import ListView, UpdateView
 
-from apps.runlog.forms import addRunForm
-from apps.runlog.models import Run
+from apps.runlog.forms import AddRunForm, UserProfileForm
+from apps.runlog.models import Run, UserProfile
 from apps.runlog.cal import RunCalendar
 
 
@@ -19,6 +21,40 @@ class RunListView(ListView):
     def get_queryset(self):
         """Override get_querset so we can filter on request.user """
         return Run.objects.filter(user=self.request.user).order_by('-date')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        """Force login required for this CBV."""
+        return super(RunListView).dispatch(*args, **kwargs)
+
+
+class UserProfileUpdateView(UpdateView):
+    """Use generic update view so user can edit his profile and settings."""
+
+    model = UserProfile
+    form_class = UserProfileForm
+    template_name = 'runlog/profile.html'
+
+    def get_success_url(self):
+        """On successful submission redirect to settings url."""
+        return reverse('settings')
+
+    def get_object(self, queryset=None):
+        """Return the object associated with the request.user."""
+        return UserProfile.objects.get(user=self.request.user)
+
+    def form_valid(self, form):
+        """Override the form valid method. We exclude the user in the
+        UserProfileForm so add the user back in here."""
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        """Force login required for this CBV."""
+        return super(UserProfileUpdateView, self).dispatch(*args, **kwargs)
 
 
 def index(request):
@@ -84,10 +120,11 @@ def runcal(request):
     """View that displays an individuals run calendar. """
 
     now = datetime.datetime.now()
+    day_week_starts = UserProfile.objects.get(user=request.user).day_week_starts
     month_runs = Run.objects.filter(
             user=request.user,
             date__month=now.month)
-    cal = RunCalendar(month_runs)
+    cal = RunCalendar(day_week_starts, month_runs)
     cal_html = cal.formatmonth(now.year, now.month)
 
     return render(request, 'runlog/calendar.html', {'calendar':
@@ -100,7 +137,7 @@ def add(request):
     data to the database."""
 
     if request.method == 'POST':
-        runForm = addRunForm(request.POST)
+        runForm = AddRunForm(request.POST)
         if runForm.is_valid():
             newRun = Run(
                     user=request.user,
@@ -115,7 +152,7 @@ def add(request):
             # return errors
             return render(request, 'runlog/add.html', {'form': runForm})
     else:
-        runForm = addRunForm()
+        runForm = AddRunForm()
 
     return render(request, 'runlog/add.html', {'form': runForm})
 

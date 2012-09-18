@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, url
 
-from apps.runlog.views import RunListView
+from apps.runlog.views import RunListView, UserProfileUpdateView
 
 urlpatterns = patterns('apps.runlog.views',
     (r'^$', 'index'),
@@ -12,6 +12,7 @@ urlpatterns = patterns('apps.runlog.views',
     (r'^add/$', 'add'),
     (r'^delete/(\d+)$', 'delete'),
     (r'^calendar/$', 'runcal'),
+    url(r'^settings/$', UserProfileUpdateView.as_view(), name='settings'),
 )
 
 urlpatterns += patterns('',

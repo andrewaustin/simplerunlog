@@ -1,14 +1,17 @@
-from calendar import HTMLCalendar
+import calendar
 from datetime import date
 from itertools import groupby
 
 from django.utils.html import conditional_escape as esc
 
 
-class RunCalendar(HTMLCalendar):
+class RunCalendar(calendar.HTMLCalendar):
 
-    def __init__(self, runs):
-        super(RunCalendar, self).__init__()
+    def __init__(self, week_start_date, runs):
+        if week_start_date == 'Monday':
+            super(RunCalendar, self).__init__(calendar.MONDAY)
+        else:
+            super(RunCalendar, self).__init__(calendar.SUNDAY)
         self.runs = self.group_by_day(runs)
 
     def formatday(self, day, weekday):

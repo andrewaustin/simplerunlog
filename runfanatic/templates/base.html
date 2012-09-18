@@ -16,6 +16,7 @@
             <a href="{% url apps.runlog.views.add %}">Add Run</a>
             <a href="{% url list %}">List Runs</a>
             <a href="{% url apps.runlog.views.runcal %}">Calendar</a>
+            <a href="{% url settings %}">Settings</a>
             <a href="{% url django.contrib.auth.views.logout %}">Logout</a>
         </center>
             {% block content %}{% endblock %}

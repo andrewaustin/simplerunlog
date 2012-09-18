@@ -39,9 +39,19 @@ class UserProfile(models.Model):
     """Stores user profile information and settings.
 
     :attr User User: The user who is associated with the profile.
+    :attr day_week_starts String: The start of the week for the user.
     """
 
     user = models.OneToOneField(User)
+
+    day_week_starts = models.CharField(
+            max_length=6,
+            choices=(
+                ('Sunday', 'Sunday'),
+                ('Monday', 'Monday'),
+            ),
+            default='SUNDAY'
+            )
 
 
 @receiver(post_save, sender=User)
