@@ -11,15 +11,17 @@
     <body>
         <h1>run fanatic</h1><h5> the runlog for serious runners</h5>
         <hr/>
-        <center>
+        <div id="navigation">
             <a href="{% url apps.runlog.views.dashboard %}">Dashboard</a>
             <a href="{% url apps.runlog.views.add %}">Add Run</a>
             <a href="{% url list %}">List Runs</a>
             <a href="{% url apps.runlog.views.runcal %}">Calendar</a>
             <a href="{% url settings %}">Settings</a>
             <a href="{% url django.contrib.auth.views.logout %}">Logout</a>
-        </center>
+        </div>
+        <div id="content">
             {% block content %}{% endblock %}
+        </div>
         <hr/>
     </body>
 </html>
