@@ -4,6 +4,7 @@ from itertools import groupby
 
 from django.utils.html import conditional_escape as esc
 
+
 class RunCalendar(HTMLCalendar):
 
     def __init__(self, runs):
@@ -21,7 +22,8 @@ class RunCalendar(HTMLCalendar):
                 for run in self.runs[day]:
                     body += '<span class="run">'
                     body += esc(run.distance) + ' mi. ('
-                    body += esc(run.hours) + ':' + esc(run.minutes) + ':' + esc(run.seconds)
+                    body += esc(run.hours) + ':' + esc(run.minutes)
+                    body += ':' + esc(run.seconds)
                     body += ')</span>'
                 return self.day_cell(cssclass, day, body)
             return self.day_cell(cssclass, day, '')
@@ -38,5 +40,5 @@ class RunCalendar(HTMLCalendar):
         )
 
     def day_cell(self, cssclass, day, body):
-        return '<td class="%s"><div class="day">%s</div>%s</td>' % (cssclass, day, body)
-
+        return '<td class="%s"><div class="day">%s</div>%s</td>' % \
+            (cssclass, day, body)

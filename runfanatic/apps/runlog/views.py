@@ -11,6 +11,7 @@ from apps.runlog.forms import addRunForm
 from apps.runlog.models import Run
 from apps.runlog.cal import RunCalendar
 
+
 class RunListView(ListView):
     """Use django generic ListView to list all the the runs for the current
     user."""
@@ -18,6 +19,7 @@ class RunListView(ListView):
     def get_queryset(self):
         """Override get_querset so we can filter on request.user """
         return Run.objects.filter(user=self.request.user).order_by('-date')
+
 
 def index(request):
     """Index view. If user is logged in redirect to dashboard, otherwise show
@@ -27,31 +29,39 @@ def index(request):
         return HttpResponseRedirect('/dashboard/')
     return render(request, 'runlog/index.html', {})
 
+
 @login_required
 def dashboard(request):
     """View that displays personal run metrics such as weekly milage, the days
     of the week run and 6 week run average."""
 
-
     today = datetime.datetime.now()
 
     week = datetime.timedelta(days=7)
-    week_runs = Run.objects.filter(user=request.user, date__range=(today-week,today))
+    week_runs = Run.objects.filter(user=request.user,
+            date__range=(today - week, today))
     weekly_milage = week_runs.aggregate(Sum('distance'))['distance__sum']
-    days_run_week = week_runs.aggregate(Count('date', distinct=True))['date__count']
+    days_run_week = week_runs.aggregate(
+                Count('date', distinct=True)
+            )['date__count']
 
     the_first_month = datetime.datetime(today.year, today.month, 1)
-    monthly_runs = Run.objects.filter(user=request.user, date__range=(the_first_month,today))
+    monthly_runs = Run.objects.filter(user=request.user,
+            date__range=(the_first_month, today))
     monthly_milage = monthly_runs.aggregate(Sum('distance'))['distance__sum']
 
-    the_first_year = datetime.datetime(today.year, 1,1,)
-    yearly_runs = Run.objects.filter(user=request.user, date__range=(the_first_year,today))
+    the_first_year = datetime.datetime(today.year, 1, 1, )
+    yearly_runs = Run.objects.filter(user=request.user,
+            date__range=(the_first_year, today))
     yearly_milage = yearly_runs.aggregate(Sum('distance'))['distance__sum']
 
     six_weeks = datetime.timedelta(days=42)
-    six_week_runs = Run.objects.filter(user=request.user, date__range=(today-six_weeks,today))
+    six_week_runs = Run.objects.filter(user=request.user,
+            date__range=(today - six_weeks, today))
     if six_week_runs:
-        six_week_total = six_week_runs.aggregate(Sum('distance'))['distance__sum']
+        six_week_total = six_week_runs.aggregate(
+                    Sum('distance')
+                )['distance__sum']
         six_week_avg = six_week_total / 6
     else:
         six_week_avg = 0
@@ -59,22 +69,30 @@ def dashboard(request):
     recent_runs = Run.objects.filter(user=request.user).order_by('-date')[:10]
 
     return render(request, 'runlog/dashboard.html', {
-        'today': today, 'weekly_milage' : weekly_milage, 'monthly_milage': monthly_milage, 'yearly_milage' : yearly_milage,
-        'days_run_week' : days_run_week, 'six_week_avg' : six_week_avg,
-        'recent_runs' : recent_runs,
+        'today': today,
+        'weekly_milage': weekly_milage,
+        'monthly_milage': monthly_milage,
+        'yearly_milage': yearly_milage,
+        'days_run_week': days_run_week,
+        'six_week_avg': six_week_avg,
+        'recent_runs': recent_runs,
         })
+
 
 @login_required
 def runcal(request):
     """View that displays an individuals run calendar. """
 
     now = datetime.datetime.now()
-    month_runs = Run.objects.filter(user=request.user, date__month=now.month)
+    month_runs = Run.objects.filter(
+            user=request.user,
+            date__month=now.month)
     cal = RunCalendar(month_runs)
     cal_html = cal.formatmonth(now.year, now.month)
 
-    return render(request, 'runlog/calendar.html', { 'calendar' :
-        mark_safe(cal_html) })
+    return render(request, 'runlog/calendar.html', {'calendar':
+        mark_safe(cal_html)})
+
 
 @login_required
 def add(request):
@@ -85,17 +103,22 @@ def add(request):
         runForm = addRunForm(request.POST)
         if runForm.is_valid():
             newRun = Run(
-                    user = request.user, date = runForm.cleaned_data['date'], hours = runForm.cleaned_data['hours'], minutes = runForm.cleaned_data['minutes'],
-                    seconds = runForm.cleaned_data['seconds'], distance = runForm.cleaned_data['distance'])
+                    user=request.user,
+                    date=runForm.cleaned_data['date'],
+                    hours=runForm.cleaned_data['hours'],
+                    minutes=runForm.cleaned_data['minutes'],
+                    seconds=runForm.cleaned_data['seconds'],
+                    distance=runForm.cleaned_data['distance'])
             newRun.save()
             return HttpResponseRedirect('/')
         else:
             # return errors
-            return render(request, 'runlog/add.html', {'form' : runForm})
+            return render(request, 'runlog/add.html', {'form': runForm})
     else:
         runForm = addRunForm()
 
-    return render(request, 'runlog/add.html', {'form' : runForm})
+    return render(request, 'runlog/add.html', {'form': runForm})
+
 
 @login_required
 def delete(request, id):

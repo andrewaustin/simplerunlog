@@ -76,4 +76,3 @@ DEBUG_TOOLBAR_CONFIG = {
 INSTALLED_APPS += (
             'django_coverage',
 )
-

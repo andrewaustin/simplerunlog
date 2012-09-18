@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+
 class Run(models.Model):
     """Stores information about a particular run.
 
@@ -33,6 +34,7 @@ class Run(models.Model):
         if self.minutes >= 60:
             raise ValidationError("Minutes must be less than 60")
 
+
 class UserProfile(models.Model):
     """Stores user profile information and settings.
 
@@ -41,8 +43,8 @@ class UserProfile(models.Model):
 
     user = models.OneToOneField(User)
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.get_or_create(user=instance)
-
