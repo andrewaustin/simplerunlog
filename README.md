@@ -5,7 +5,8 @@ A multi-user run tracker.
 
 Things To Do
 -------------
-* Refactor generic view out of urls.py (bug because not filtering on user).
+* Use CSS/div to center rather than center tag.
+* Add timezone and day starts on field to user profile.
 * Calendar
     * Add Goals
     * Method to select the month
