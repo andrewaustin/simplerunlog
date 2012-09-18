@@ -1,14 +1,12 @@
 from django.conf.urls.defaults import patterns, url
-from django.views.generic import ListView
 
-from apps.runlog.models import Run
+from apps.runlog.views import RunListView
 
 urlpatterns = patterns('apps.runlog.views',
     (r'^$', 'index'),
     (r'^dashboard/$', 'dashboard'),
     url(r'^runs/$',
-        ListView.as_view(
-            queryset = Run.objects.order_by('-date'),
+        RunListView.as_view(
             template_name ='runlog/list.html'), name='list'),
     (r'^add/$', 'add'),
     (r'^delete/(\d+)$', 'delete'),

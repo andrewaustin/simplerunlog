@@ -5,12 +5,24 @@ from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
+from django.views.generic import ListView
 
 from apps.runlog.forms import addRunForm
 from apps.runlog.models import Run
 from apps.runlog.cal import RunCalendar
 
+class RunListView(ListView):
+    """Use django generic ListView to list all the the runs for the current
+    user."""
+
+    def get_queryset(self):
+        """Override get_querset so we can filter on request.user """
+        return Run.objects.filter(user=self.request.user).order_by('-date')
+
 def index(request):
+    """Index view. If user is logged in redirect to dashboard, otherwise show
+    the index."""
+
     if request.user.is_authenticated():
         return HttpResponseRedirect('/dashboard/')
     return render(request, 'runlog/index.html', {})
