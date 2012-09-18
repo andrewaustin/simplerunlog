@@ -5,16 +5,15 @@ A multi-user run tracker.
 
 Things To Do
 -------------
-* Use CSS/div to center rather than center tag.
-* Add timezone and day starts on field to user profile.
+* Add run using jQuery modal form dialog
+* Public profile at /user/username
+* Setting to disable public profile
 * Calendar
-    * Add Goals
-    * Method to select the month
-* Dashboard
-    * Buttons: http://www.wu-gallery.com/tutorials:creating-web-buttons-in-gimp
-* Add run bug where invalid input takes you to /add/ instead of colorbox.
-* Make a /user/username page
+    * Add Planned Runs
+    * Add Races
+    * Allow user to change selected month
 * Timezone disparity between local time and server time.
+    * https://docs.djangoproject.com/en/dev/topics/i18n/timezones/
 * grab gps data from Garmin
     * http://developer.garmin.com/
 * integrate with facebook when posting runs
@@ -23,7 +22,7 @@ Things To Do
 * 30 day trial
 * better unit tests
 * better design
-    * Refactor base.html to allow each page to add extra libraries to the header
+    * dashboard buttons
     * http://developer.garmin.com/
     * http://fpcomplete.com/services/
 * add current temperature/percipitation and light level to make recommendation on what to wear
