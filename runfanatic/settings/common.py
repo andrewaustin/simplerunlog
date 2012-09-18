@@ -258,3 +258,8 @@ COMPRESS_JS_FILTERS = [
     'compressor.filters.template.TemplateFilter',
 ]
 ########## END COMPRESSION CONFIGURATION
+
+########## user.contrib.auth CONFIGURATION
+# See http://django.readthedocs.org/en/latest/topics/auth.html
+LOGIN_URL = '/login'
+########## END user.contrib.auth CONFIGURATION
