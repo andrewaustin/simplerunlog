@@ -25,7 +25,7 @@ class RunListView(ListView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         """Force login required for this CBV."""
-        return super(RunListView).dispatch(*args, **kwargs)
+        return super(RunListView, self).dispatch(*args, **kwargs)
 
 
 class UserProfileUpdateView(UpdateView):
