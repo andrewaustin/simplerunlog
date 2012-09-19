@@ -1,9 +1,9 @@
-$(function() {
-    var date = $( "#date" ),
-        distance = $( "#distance" ),
-        hours = $( "#hours" ),
-        minutes = $( "#minutes" ),
-        seconds = $( "#seconds" ),
+$(document).ready(function() {
+    var date = $( "#id_date" ),
+        distance = $( "#id_distance" ),
+        hours = $( "#id_hours" ),
+        minutes = $( "#id_minutes" ),
+        seconds = $( "#id_seconds" ),
         allFields = $( [] ).add( date ).add( distance ).add( hours ).add( minutes ).add( seconds ),
         tips = $( ".validateTips" );
 
@@ -37,6 +37,30 @@ $(function() {
         }
     }
 
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie != '') {
+                     var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                         var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                // Only send the token to relative URLs i.e. locally.
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+
     $( "#dialog-form" ).dialog({
         autoOpen: false,
         height: 400,
@@ -47,7 +71,7 @@ $(function() {
                 var bValid = true;
                 allFields.removeClass( "ui-state-error" );
 
-                bValid = bValid && checkLength( date, "date", 3, 16 );
+                //bValid = bValid && checkLength( date, "date", 3, 16 );
                 bValid = bValid && checkLength( distance, "distance", 0, 100 );
                 bValid = bValid && checkLength( hours, "hours", 0, 2 );
                 bValid = bValid && checkLength( minutes, "minutes", 0, 2 );
@@ -57,6 +81,11 @@ $(function() {
                 //bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
 
                 if ( bValid ) {
+                    $.ajax({
+                        url: "/add/",
+                        type: "POST",
+                        data: $( "#dialog-form-data" ).serialize(),
+                    });
                     //$( "#users tbody" ).append( "<tr>" +
                     //"<td>" + name.val() + "</td>" +
                     //"<td>" + email.val() + "</td>" +
@@ -73,6 +102,8 @@ $(function() {
             allFields.val( "" ).removeClass( "ui-state-error" );
         }
     });
+
+    $("#id_date").datepicker({dateFormat:'yy-mm-dd'})
 
     $( "#addRun" )
         .click(function() {

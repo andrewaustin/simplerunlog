@@ -135,7 +135,6 @@ def runcal(request):
 def add(request):
     """View that displays a Django form to add new run data and saves that new
     data to the database."""
-
     if request.method == 'POST':
         runForm = AddRunForm(request.POST)
         if runForm.is_valid():

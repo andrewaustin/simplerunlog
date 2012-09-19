@@ -6,7 +6,7 @@
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/flick/jquery-ui.css" rel="stylesheet" type="text/css"/>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-        <script src="{{ STATIC_URL }}js/addRun.js"></script> 
+        <script src="{{ STATIC_URL }}js/addRun.js"></script>
         {% block extra_headers %}{% endblock %}
     </head>
     <body>
@@ -22,18 +22,19 @@
         </div>
         <div id="dialog-form" title="Add a Run">
             <p class="validateTips">All form fields are required.</p>
-            <form>
+            <form id="dialog-form-data">
             <fieldset>
-            <label for="date">Date</label>
-            <input type="text" name="date" id="date" class="text ui-widget-content ui-corner-all" />
-            <br/><label for="distance">Distance</label>
-            <input type="text" name="distnace" id="distance" value="" class="text ui-widget-content ui-corner-all" />
-            <br/><label for="hours">Hours</label>
-            <input type="text" name="hours" id="hours" value="00" maxlenght="2" class="text ui-widget-content ui-corner-all" />
-            <br/><label for="minutes">Minutes</label>
-            <input type="text" name="hours" id="minutes" value="00" maxlenght="2" class="text ui-widget-content ui-corner-all" />
-            <br/><label for="seconds">Seconds</label>
-            <input type="text" name="seconds" id="seconds" value="00" maxlenght="2" class="text ui-widget-content ui-corner-all" />
+            <label for="id_date">Date</label>
+            <input type="text" name="date" id="id_date" class="text ui-widget-content ui-corner-all" />
+            <br/><label for="id_distance">Distance</label>
+            <input type="text" name="distance" id="id_distance" value="" class="text ui-widget-content ui-corner-all" />
+            <br/><label for="id_hours">Time</label>
+            <input type="text" name="hours" id="id_hours" value="00"
+            maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />:
+            <input type="text" name="minutes" id="id_minutes" value="00"
+            maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />:
+            <input type="text" name="seconds" id="id_seconds" value="00"
+            maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />
             </fieldset>
             </form>
         </div>
