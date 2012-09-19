@@ -5,6 +5,7 @@ A multi-user run tracker.
 
 Things To Do
 -------------
+* Miles vs. Kilometers setting
 * Add run using jQuery modal form dialog
 * Public profile at /user/username
 * Setting to disable public profile
@@ -18,6 +19,8 @@ Things To Do
     * http://developer.garmin.com/
 * integrate with facebook when posting runs
 * autogenerate image signature that links to user profile (PIL)
+    * http://docs.python.org/library/stringio.html
+    * http://www.pythonware.com/library/pil/handbook/image.htm#Image.save
 * user registration
 * 30 day trial
 * better unit tests
