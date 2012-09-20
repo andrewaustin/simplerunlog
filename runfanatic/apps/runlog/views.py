@@ -2,6 +2,7 @@ import datetime
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect, Http404, HttpResponse
@@ -66,16 +67,18 @@ def index(request):
         return HttpResponseRedirect('/dashboard/')
     return render(request, 'runlog/index.html', {})
 
+def public_profile(request, username):
+    u = User.objects.get(username=username)
+    metrics = get_run_metrics_for_user(u)
+    return render(request, 'runlog/public_profile.html', metrics)
 
-@login_required
-def dashboard(request):
-    """View that displays personal run metrics such as weekly milage, the days
-    of the week run and 6 week run average."""
+def get_run_metrics_for_user(user):
+    """Helper method to get run stats for a user."""
 
     today = datetime.datetime.now()
 
     week = datetime.timedelta(days=7)
-    week_runs = Run.objects.filter(user=request.user,
+    week_runs = Run.objects.filter(user=user,
             date__range=(today - week, today))
     weekly_milage = week_runs.aggregate(Sum('distance'))['distance__sum']
     days_run_week = week_runs.aggregate(
@@ -83,17 +86,17 @@ def dashboard(request):
             )['date__count']
 
     the_first_month = datetime.datetime(today.year, today.month, 1)
-    monthly_runs = Run.objects.filter(user=request.user,
+    monthly_runs = Run.objects.filter(user=user,
             date__range=(the_first_month, today))
     monthly_milage = monthly_runs.aggregate(Sum('distance'))['distance__sum']
 
     the_first_year = datetime.datetime(today.year, 1, 1, )
-    yearly_runs = Run.objects.filter(user=request.user,
+    yearly_runs = Run.objects.filter(user=user,
             date__range=(the_first_year, today))
     yearly_milage = yearly_runs.aggregate(Sum('distance'))['distance__sum']
 
     six_weeks = datetime.timedelta(days=42)
-    six_week_runs = Run.objects.filter(user=request.user,
+    six_week_runs = Run.objects.filter(user=user,
             date__range=(today - six_weeks, today))
     if six_week_runs:
         six_week_total = six_week_runs.aggregate(
@@ -103,9 +106,9 @@ def dashboard(request):
     else:
         six_week_avg = 0
 
-    recent_runs = Run.objects.filter(user=request.user).order_by('-date')[:10]
+    recent_runs = Run.objects.filter(user=user).order_by('-date')[:10]
 
-    return render(request, 'runlog/dashboard.html', {
+    return {
         'today': today,
         'weekly_milage': weekly_milage,
         'monthly_milage': monthly_milage,
@@ -113,8 +116,14 @@ def dashboard(request):
         'days_run_week': days_run_week,
         'six_week_avg': six_week_avg,
         'recent_runs': recent_runs,
-        })
+        }
 
+@login_required
+def dashboard(request):
+    """View that displays personal run metrics such as weekly milage, the days
+    of the week run and 6 week run average."""
+    return render(request, 'runlog/dashboard.html',
+            get_run_metrics_for_user(request.user))
 
 @login_required
 def runcal(request):

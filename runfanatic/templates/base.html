@@ -15,31 +15,37 @@
             <h1>run fanatic</h1><h5> the runlog for serious runners</h5>
         </div>
         <div id="sidebar">
-            <a href="{% url dashboard %}" class="nav">Dashboard</a><br/>
-            <a id="addRun" href="#" class="nav">Add Run</a><br/>
-            <a href="{% url list %}" class="nav">List Runs</a><br/>
-            <a href="{% url calendar %}" class="nav">Calendar</a><br/>
-            <a href="{% url settings %}" class="nav">Settings</a><br/>
-            <a href="{% url logout %}" class="nav">Logout</a><br/>
+            {% if user.is_authenticated %}
+                <a href="{% url dashboard %}" class="nav">Dashboard</a><br/>
+                <a id="addRun" href="#" class="nav">Add Run</a><br/>
+                <a href="{% url list %}" class="nav">List Runs</a><br/>
+                <a href="{% url calendar %}" class="nav">Calendar</a><br/>
+                <a href="{% url settings %}" class="nav">Settings</a><br/>
+                <a href="{% url logout %}" class="nav">Logout</a><br/>
+            {% else %}
+                <a href="{% url login %}" class="nav">Login</a><br/>
+            {% endif %}
         </div>
+        {% if user.is_authenticated %}
         <div id="dialog-form" title="Add a Run">
-            <p class="validateTips">All form fields are required.</p>
-            <form id="dialog-form-data">
-            <fieldset>
-            <label for="id_date">Date</label>
-            <input type="text" name="date" id="id_date" class="text ui-widget-content ui-corner-all" />
-            <br/><label for="id_distance">Distance</label>
-            <input type="text" name="distance" id="id_distance" value="" class="text ui-widget-content ui-corner-all" />
-            <br/><label for="id_hours">Time</label>
-            <input type="text" name="hours" id="id_hours" value="00"
-            maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />:
-            <input type="text" name="minutes" id="id_minutes" value="00"
-            maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />:
-            <input type="text" name="seconds" id="id_seconds" value="00"
-            maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />
-            </fieldset>
-            </form>
+                <p class="validateTips">All form fields are required.</p>
+                <form id="dialog-form-data">
+                <fieldset>
+                <label for="id_date">Date</label>
+                <input type="text" name="date" id="id_date" class="text ui-widget-content ui-corner-all" />
+                <br/><label for="id_distance">Distance</label>
+                <input type="text" name="distance" id="id_distance" value="" class="text ui-widget-content ui-corner-all" />
+                <br/><label for="id_hours">Time</label>
+                <input type="text" name="hours" id="id_hours" value="00"
+                maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />:
+                <input type="text" name="minutes" id="id_minutes" value="00"
+                maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />:
+                <input type="text" name="seconds" id="id_seconds" value="00"
+                maxlenght="2" size="3" class="ui-widget-content ui-corner-all" />
+                </fieldset>
+                </form>
         </div>
+        {% endif %}
         <div id="content">
             {% block content %}{% endblock %}
         </div>

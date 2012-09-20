@@ -13,6 +13,8 @@ urlpatterns = patterns('apps.runlog.views',
     url(r'^delete/(\d+)$', 'delete', name='delete'),
     url(r'^calendar/$', 'runcal', name='calendar'),
     url(r'^settings/$', UserProfileUpdateView.as_view(), name='settings'),
+    url(r'^user/(?P<username>[\w.@+-]+)', 'public_profile',
+        name='public_profile'),
 )
 
 urlpatterns += patterns('',
