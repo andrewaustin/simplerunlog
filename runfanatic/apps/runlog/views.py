@@ -1,9 +1,10 @@
 import datetime
+import json
 
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Count
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from django.utils.decorators import method_decorator
@@ -133,8 +134,7 @@ def runcal(request):
 
 @login_required
 def add(request):
-    """View that displays a Django form to add new run data and saves that new
-    data to the database."""
+    """View that handles ajax of adding a run to the database."""
     if request.method == 'POST':
         runForm = AddRunForm(request.POST)
         if runForm.is_valid():
@@ -146,14 +146,14 @@ def add(request):
                     seconds=runForm.cleaned_data['seconds'],
                     distance=runForm.cleaned_data['distance'])
             newRun.save()
-            return HttpResponseRedirect('/')
+            response = {'id': newRun.pk }
+            return HttpResponse(json.dumps(response),
+                    mimetype="application/json")
         else:
             # return errors
-            return render(request, 'runlog/add.html', {'form': runForm})
-    else:
-        runForm = AddRunForm()
-
-    return render(request, 'runlog/add.html', {'form': runForm})
+            return HttpResponse(json.dumps(runForm.errors),
+                    mimetype="application/json")
+    return HttpResponseRedirect('/')
 
 
 @login_required

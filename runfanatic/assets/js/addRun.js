@@ -71,7 +71,7 @@ $(document).ready(function() {
                 var bValid = true;
                 allFields.removeClass( "ui-state-error" );
 
-                //bValid = bValid && checkLength( date, "date", 3, 16 );
+                bValid = bValid && checkLength( date, "date", 10, 10 );
                 bValid = bValid && checkLength( distance, "distance", 0, 100 );
                 bValid = bValid && checkLength( hours, "hours", 0, 2 );
                 bValid = bValid && checkLength( minutes, "minutes", 0, 2 );
@@ -81,17 +81,21 @@ $(document).ready(function() {
                 //bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
 
                 if ( bValid ) {
+                    that = $( this )
                     $.ajax({
                         url: "/add/",
                         type: "POST",
                         data: $( "#dialog-form-data" ).serialize(),
+                        success:function(data) {
+                            if(data.hasOwnProperty("id")) {
+                                that.dialog( "close" );
+                            } else {
+                                $.each(data, function(key, value) {
+                                    updateTips(value);
+                                });
+                            }
+                        }
                     });
-                    //$( "#users tbody" ).append( "<tr>" +
-                    //"<td>" + name.val() + "</td>" +
-                    //"<td>" + email.val() + "</td>" +
-                    //"<td>" + password.val() + "</td>" +
-                    //"</tr>" );
-                    $( this ).dialog( "close" );
                 }
             },
             Cancel: function() {
