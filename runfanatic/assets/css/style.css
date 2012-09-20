@@ -29,6 +29,10 @@ body {
     margin: 20px;
 }
 
+#header h1 {
+    font-size: 22px;
+}
+
 #content {
     width: 66%;
     margin: 0px auto;
