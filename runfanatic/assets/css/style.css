@@ -31,11 +31,13 @@ body {
 
 #content {
     width: 66%;
+    margin: 0px auto;
 }
 
 #sidebar {
     float: right;
     width: 260px;
+    margin: 0px auto;
 }
 
 p, h1, pre {
@@ -79,7 +81,7 @@ pre {
 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 12px;
-    margin: 45px;
+    margin: 5px;
     width: 480px;
     text-align: left;
     border-collapse: collapse;
@@ -89,7 +91,7 @@ pre {
     font-size: 14px;
     font-weight: normal;
     padding: 10px 8px;
-    color: #039;
+    color: #0073EA;
 }
 #hor-zebra td
 {
@@ -105,7 +107,7 @@ pre {
 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
     font-size: 12px;
-    margin: 45px;
+    margin: 5px;
     width: 480px;
     text-align: left;
     border-collapse: collapse;

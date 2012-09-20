@@ -5,15 +5,15 @@ table.month {
 table.month td {
     border: 1px solid #484848;
     overflow: hidden;
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     position: relative;
 }
 
 table.month th {
     border: 1px solid #484848;
     overflow: hidden;
-    width: 100px;
+    width: 75px;
     height: 25px;
     background: #A0A0A0;
 }
@@ -32,7 +32,8 @@ table.month td div.day {
 table.month span.run {
     margin: 1px;
     display: block;
-    background:#3366FF;
+    background: #0073EA;
     width: 100%;
-    font-size: 0.75em;
+    font-size: 0.60em;
+    color: #ffffff;
 }
