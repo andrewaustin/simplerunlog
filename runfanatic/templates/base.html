@@ -13,13 +13,13 @@
         <div id="page">
         <h1>run fanatic</h1><h5> the runlog for serious runners</h5>
         <br/>
-        <div id="navigation">
-            <a href="{% url dashboard %}">Dashboard</a>
-            <a id="addRun" href="#">Add Run</a>
-            <a href="{% url list %}">List Runs</a>
-            <a href="{% url calendar %}">Calendar</a>
-            <a href="{% url settings %}">Settings</a>
-            <a href="{% url logout %}">Logout</a>
+        <div id="sidebar">
+            <a href="{% url dashboard %}" class="nav">Dashboard</a><br/>
+            <a id="addRun" href="#" class="nav">Add Run</a><br/>
+            <a href="{% url list %}" class="nav">List Runs</a><br/>
+            <a href="{% url calendar %}" class="nav">Calendar</a><br/>
+            <a href="{% url settings %}" class="nav">Settings</a><br/>
+            <a href="{% url logout %}" class="nav">Logout</a><br/>
         </div>
         <div id="dialog-form" title="Add a Run">
             <p class="validateTips">All form fields are required.</p>
