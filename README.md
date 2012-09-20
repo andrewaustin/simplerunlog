@@ -6,8 +6,7 @@ A multi-user run tracker.
 Things To Do
 -------------
 * Miles vs. Kilometers setting
-* Add run using jQuery modal form dialog
-* Public profile at /user/username
+* Run types from jack daniels
 * Setting to disable public profile
 * Calendar
     * Add Planned Runs
@@ -15,8 +14,6 @@ Things To Do
     * Allow user to change selected month
 * Timezone disparity between local time and server time.
     * https://docs.djangoproject.com/en/dev/topics/i18n/timezones/
-* grab gps data from Garmin
-    * http://developer.garmin.com/
 * integrate with facebook when posting runs
 * autogenerate image signature that links to user profile (PIL)
     * http://docs.python.org/library/stringio.html
@@ -28,4 +25,4 @@ Things To Do
     * dashboard buttons
     * http://developer.garmin.com/
     * http://fpcomplete.com/services/
-* add current temperature/percipitation and light level to make recommendation on what to wear
+    * http://www.456bereastreet.com/
