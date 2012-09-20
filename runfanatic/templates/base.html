@@ -10,8 +10,9 @@
         {% block extra_headers %}{% endblock %}
     </head>
     <body>
+        <div id="page">
         <h1>run fanatic</h1><h5> the runlog for serious runners</h5>
-        <hr/>
+        <br/>
         <div id="navigation">
             <a href="{% url dashboard %}">Dashboard</a>
             <a id="addRun" href="#">Add Run</a>
@@ -41,6 +42,7 @@
         <div id="content">
             {% block content %}{% endblock %}
         </div>
-        <hr/>
+        <br/>
+    </div>
     </body>
 </html>

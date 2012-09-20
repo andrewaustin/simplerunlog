@@ -2,6 +2,58 @@ h1,h2,h3,h4,h5,h6 {
     display: inline;
 }
 
+body {
+    background-color: #0073EA;
+    font-size: 12px;
+    font-family: Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+    color:#564b47;
+    padding:20px;
+    margin:0px;
+    text-align: center;
+}
+
+#page {
+    text-align: left;
+    vertical-align: middle;
+    margin: 0px auto;
+    padding: 0px;
+    width: 960px;
+    background-color: #ffffff;
+    border: 3px #564b47;
+    -moz-box-shadow: 0 0 5px #000;
+    -webkit-box-shadow: 0 0 5px #000;
+    box-shadow: 0 0 5px #000;
+}
+
+p, h1, pre {
+    margin: 0px;
+    padding: 5px 10px;
+}
+
+h1 {
+    font-size: 11px;
+    text-transform:uppercase;
+    text-align: right;
+    color: #564b47;
+    background-color: #90897a;
+}
+
+a {
+    color: #ff66cc;
+    font-size: 11px;
+    background-color:transparent;
+    text-decoration: none;
+}
+
+pre {
+    color: #564b47;
+    font-size: 11px;
+    background-color:transparent;
+    font-family: Courier, Monaco, Monospace;
+}
+
+
+
 #hor-zebra
 {
     font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
