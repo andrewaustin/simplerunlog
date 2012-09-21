@@ -20,6 +20,7 @@ body {
     width: 960px;
     background-color: #ffffff;
     border: 3px #564b47;
+    overflow: hidden;
     -moz-box-shadow: 0 0 5px #000;
     -webkit-box-shadow: 0 0 5px #000;
     box-shadow: 0 0 5px #000;
