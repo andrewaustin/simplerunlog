@@ -5,12 +5,11 @@ A multi-user run tracker.
 
 Things To Do
 -------------
-* Miles vs. Kilometers setting
 * Run types from jack daniels
-* Setting to disable public profile
 * Calendar
     * Add Planned Runs
     * Add Races
+    * Goals
     * Allow user to change selected month
 * Timezone disparity between local time and server time.
     * https://docs.djangoproject.com/en/dev/topics/i18n/timezones/
