@@ -80,7 +80,7 @@ def get_run_metrics_for_user(user):
     week = datetime.timedelta(days=7)
     week_runs = Run.objects.filter(user=user,
             date__range=(today - week, today))
-    weekly_milage = week_runs.aggregate(Sum('distance'))['distance__sum']
+    weekly_distance = week_runs.aggregate(Sum('distance'))['distance__sum']
     days_run_week = week_runs.aggregate(
                 Count('date', distinct=True)
             )['date__count']
@@ -88,12 +88,12 @@ def get_run_metrics_for_user(user):
     the_first_month = datetime.datetime(today.year, today.month, 1)
     monthly_runs = Run.objects.filter(user=user,
             date__range=(the_first_month, today))
-    monthly_milage = monthly_runs.aggregate(Sum('distance'))['distance__sum']
+    monthly_distance = monthly_runs.aggregate(Sum('distance'))['distance__sum']
 
     the_first_year = datetime.datetime(today.year, 1, 1, )
     yearly_runs = Run.objects.filter(user=user,
             date__range=(the_first_year, today))
-    yearly_milage = yearly_runs.aggregate(Sum('distance'))['distance__sum']
+    yearly_distance = yearly_runs.aggregate(Sum('distance'))['distance__sum']
 
     six_weeks = datetime.timedelta(days=42)
     six_week_runs = Run.objects.filter(user=user,
@@ -108,14 +108,17 @@ def get_run_metrics_for_user(user):
 
     recent_runs = Run.objects.filter(user=user).order_by('-date')[:10]
 
+    units = UserProfile.objects.get(user=user).units
+
     return {
         'today': today,
-        'weekly_milage': weekly_milage,
-        'monthly_milage': monthly_milage,
-        'yearly_milage': yearly_milage,
+        'weekly_distance': weekly_distance,
+        'monthly_distance': monthly_distance,
+        'yearly_distance': yearly_distance,
         'days_run_week': days_run_week,
         'six_week_avg': six_week_avg,
         'recent_runs': recent_runs,
+        'units': units,
         }
 
 @login_required

@@ -5,16 +5,25 @@
 {% block content %}
 <table border = "0">
 <tr>
-<td>
-<h2>7 Day Milage:</h2>
+    <td>
+        {% ifequal units "mi" %}
+        <h2>7 Day Mileage:</h2>
+        {% else %}
+        <h2>7 Day Kilometerage:</h2>
+        {% endifequal %}
 </td>
 <td>
-<h2>{{ weekly_milage }}</h2>
+<h2>{{ weekly_distance }}</h2>
 </td>
 </tr>
 <tr>
-<td>
-<h2>6 Weekly Milage Average:</h2>
+    <td>
+
+        {% ifequal units "mi" %}
+        <h2>6 Week Mileage Average:</h2>
+        {% else %}
+        <h2>6 Week Kilometerage Average:</h2>
+        {% endifequal %}
 </td>
 <td>
 <h2>{{ six_week_avg }}</h2>
@@ -22,10 +31,14 @@
 </tr>
 <tr>
 <td>
-<h2>Monthly Miles:</h2>
+        {% ifequal units "mi" %}
+        <h2>Monthly Milage:</h2>
+        {% else %}
+        <h2>Monthly Kilometerage:</h2>
+        {% endifequal %}
 </td>
 <td>
-<h2>{{ monthly_milage }}</h2>
+<h2>{{ monthly_distance }}</h2>
 </td>
 </tr>
 <tr>
@@ -37,10 +50,14 @@
 </td>
 <tr>
 <td>
-<h2>YTD Milage:</h2>
+        {% ifequal units "mi" %}
+        <h2>Year to Date Milage:</h2>
+        {% else %}
+        <h2>Year to Date Kilometerage:</h2>
+        {% endifequal %}
 </td>
 <td>
-<h2>{{ yearly_milage }}</h2>
+<h2>{{ yearly_distance }}</h2>
 </td>
 </tr>
 </table>

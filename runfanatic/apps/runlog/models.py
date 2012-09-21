@@ -50,7 +50,15 @@ class UserProfile(models.Model):
                 ('Sunday', 'Sunday'),
                 ('Monday', 'Monday'),
             ),
-            default='SUNDAY'
+            default='Sunday'
+            )
+    units = models.CharField(
+            max_length=2,
+            choices=(
+                ('mi', 'Miles'),
+                ('km', 'Kilometers'),
+            ),
+            default='mi'
             )
 
 
