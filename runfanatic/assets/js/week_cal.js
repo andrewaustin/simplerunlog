@@ -24,26 +24,44 @@ $(document).ready(function() {
         }
     });
 
+    function date_to_string(date) {
+        return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+    }
+
     $( "#week_cal" )
         .append(function() {
             var result = '';
-            var d = new Date();
-            var startday = d.getDate() - (d.getDay() + 7) % 7;
+
+            var startdate = new Date();
+            startdate.setDate(startdate.getDate() - (startdate.getDay() + 7) % 7);
+
+            var datearray = Array();
+            for (var i = 0; i < 7; i++) {
+                var newDate = new Date();
+                newDate.setDate(startdate.getDate() + i );
+                datearray.push(newDate);
+            }
+
+            getData = 'date__gte=' + date_to_string(datearray[0]) + '&date__lte=' + date_to_string(datearray[datearray.length-1]);
+
+            $.ajax({
+                url: '/api/v1/run/',
+                data: getData,
+                dataType: 'json'
+            });
+
             result += '<table id="weekcal" class="bordered">\n';
             result += '<thead>\n';
             result += '<tr><th>Sunday</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th><th>Saturday</th></tr>\n';
             result += '</thead>\n';
             result += '<tr>\n';
-            result += '<td><div class="day">' + startday + '</div></td>';
-            result += '<td><div class="day">' + (startday+1) + '</div>boo!</td>';
-            result += '<td><div class="day">' + (startday+2) + '</div></td>';
-            result += '<td><div class="day">' + (startday+3) + '</div></td>';
-            result += '<td><div class="day">' + (startday+4) + '</div></td>';
-            result += '<td><div class="day">' + (startday+5) + '</div></td>';
-            result += '<td><div class="day">' + (startday+6) + '</div></td>';
+            for (var i = 0; i < datearray.length; i++) {
+                result += '<td><div class="day">' + datearray[i].getDate() + '</div></td>';
+            }
             result += '\n';
             result += '</tr>\n';
             result += '</table>\n';
+
             return result;
         });
 });
