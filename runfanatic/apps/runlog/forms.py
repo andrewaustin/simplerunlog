@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TypedChoiceField
+from django.forms import ModelForm, ChoiceField, RadioSelect
 from apps.runlog.models import Run, UserProfile
 
 
@@ -10,8 +10,9 @@ class AddRunForm(ModelForm):
 
 
 class UserProfileForm(ModelForm):
-    public = TypedChoiceField(coerce=lambda x: x =='True', choices=((False,
-        'No'), (True, 'Yes')))
+    public = ChoiceField(choices=((False,
+        'No'), (True, 'Yes')), label="Make my profile public?",
+        widget=RadioSelect)
     class Meta:
         model = UserProfile
         exclude = ('user',)
