@@ -1,14 +1,15 @@
 import datetime
-import json
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.serializers.json import DjangoJSONEncoder
 from django.core.urlresolvers import reverse
 from django.db.models import Sum, Count
 from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render
-from django.utils.safestring import mark_safe
 from django.utils.decorators import method_decorator
+from django.utils.safestring import mark_safe
+from django.utils.simplejson import dumps
 from django.views.generic import ListView, UpdateView
 
 from apps.runlog.forms import AddRunForm, UserProfileForm
@@ -143,6 +144,28 @@ def runcal(request):
     return render(request, 'runlog/calendar.html', {'calendar':
         mark_safe(cal_html)})
 
+@login_required
+def run(request):
+    """Handles ajax GET requests for runs."""
+    if request.method == 'GET':
+        start = int(request.GET.get('start', ''))
+        end = int(request.GET.get('end', ''))
+
+        if start and end:
+            start = datetime.datetime.fromtimestamp(start)
+            end = datetime.datetime.fromtimestamp(end)
+            runs = Run.objects.filter(user=request.user, date__range=(start, end))
+            data = []
+            for run in runs:
+                elem = {}
+                elem['start'] = run.date
+                elem['end'] = run.date
+                elem['title'] = "%s mi. in %s:%s:%s" % (run.distance, run.hours,
+                    run.minutes, run.seconds)
+                data.append(elem)
+            return HttpResponse(dumps(data, cls=DjangoJSONEncoder),
+                mimetype="application/json")
+    return HttpResponseRedirect('/')
 
 @login_required
 def add(request):
@@ -159,11 +182,11 @@ def add(request):
                     distance=runForm.cleaned_data['distance'])
             newRun.save()
             response = {'id': newRun.pk }
-            return HttpResponse(json.dumps(response),
+            return HttpResponse(dumps(response),
                     mimetype="application/json")
         else:
             # return errors
-            return HttpResponse(json.dumps(runForm.errors),
+            return HttpResponse(dumps(runForm.errors),
                     mimetype="application/json")
     return HttpResponseRedirect('/')
 

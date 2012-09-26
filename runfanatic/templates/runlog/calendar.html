@@ -2,6 +2,12 @@
 
 {% block title %}Calendar{% endblock %}
 
+{% block extra_headers %}
+<link href="{{ STATIC_URL }}css/fullcalendar.css" rel="stylesheet" type="text/css"/>
+<script src="{{ STATIC_URL }}js/fullcalendar.min.js"></script>
+<script src="{{ STATIC_URL }}js/setupCalendar.js"></script>
+{% endblock %}
+
 {% block content %}
-{{ calendar }}
+<div id='calendar'></div>
 {% endblock %}

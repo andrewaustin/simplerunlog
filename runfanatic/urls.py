@@ -5,10 +5,11 @@ from apps.runlog.views import RunListView, UserProfileUpdateView
 urlpatterns = patterns('apps.runlog.views',
     url(r'^$', 'index', name='index'),
     url(r'^dashboard/$', 'dashboard', name='dashboard'),
-    url(r'^runs/$',
+    url(r'^runlist/$',
         RunListView.as_view(
             template_name='runlog/list.html'
         ), name='list'),
+    url(r'^run/$', 'run', name='run'),
     url(r'^add/$', 'add', name='add'),
     url(r'^delete/(\d+)$', 'delete', name='delete'),
     url(r'^calendar/$', 'runcal', name='calendar'),

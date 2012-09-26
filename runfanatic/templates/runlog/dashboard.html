@@ -2,7 +2,13 @@
 
 {% block title %}Dashboard {% endblock %}
 
+{% block extra_headers %}
+<link href="{{ STATIC_URL }}css/week_cal.css" rel="stylesheet" type="text/css"/>
+<script src="{{ STATIC_URL }}js/week_cal.js"></script>
+{% endblock %}
+
 {% block content %}
+<div id="week_cal"></div>
 <table border = "0">
 <tr>
     <td>
@@ -32,7 +38,7 @@
 <tr>
 <td>
         {% ifequal units "mi" %}
-        <h2>Monthly Milage:</h2>
+        <h2>Monthly Mileage:</h2>
         {% else %}
         <h2>Monthly Kilometerage:</h2>
         {% endifequal %}
@@ -51,7 +57,7 @@
 <tr>
 <td>
         {% ifequal units "mi" %}
-        <h2>Year to Date Milage:</h2>
+        <h2>Year to Date Mileage:</h2>
         {% else %}
         <h2>Year to Date Kilometerage:</h2>
         {% endifequal %}
