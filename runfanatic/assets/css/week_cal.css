@@ -4,9 +4,10 @@ table#weekcal {
     width: 100%;
 }
 
-table#weekcal td div.day {
-    float: right;
-    vertical-align: top;
+table#weekcal div.day {
+    position: absolute;
+    top: 5px;
+    right: 5px;
     color: #808080;
     font-size: .5em;
 }
@@ -28,7 +29,7 @@ table#weekcal td th {
     box-shadow: 0 1px 1px #ccc;
 }
 
-.bordered tr:hover {
+.bordered td:hover {
     background: #fbf8e9;
     -o-transition: all 0.1s ease-in-out;
     -webkit-transition: all 0.1s ease-in-out;
@@ -42,6 +43,7 @@ table#weekcal td th {
     border-top: 1px solid #ccc;
     padding: 10px;
     text-align: left;
+    position: relative;
 }
 
 .bordered td {
@@ -50,13 +52,13 @@ table#weekcal td th {
 }
 
 .bordered th {
-    background-color: #dce9f9;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#dce9f9));
-    background-image: -webkit-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:    -moz-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:     -ms-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:      -o-linear-gradient(top, #ebf3fc, #dce9f9);
-    background-image:         linear-gradient(top, #ebf3fc, #dce9f9);
+    background-color: #0073EA;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#ebf3fc), to(#0073EA));
+    background-image: -webkit-linear-gradient(top, #ebf3fc, #0073EA);
+    background-image:    -moz-linear-gradient(top, #ebf3fc, #0073EA);
+    background-image:     -ms-linear-gradient(top, #ebf3fc, #0073EA);
+    background-image:      -o-linear-gradient(top, #ebf3fc, #0073EA);
+    background-image:         linear-gradient(top, #ebf3fc, #0073EA);
     -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
     -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
     box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
