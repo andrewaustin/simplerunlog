@@ -5,12 +5,13 @@ A multi-user run tracker.
 
 Things To Do
 -------------
+* Ajax request for /runs/ in the week view.
+* Validate model field (cleanfield() instead of clean())
 * Run types from jack daniels
 * Calendar
     * Add Planned Runs
     * Add Races
     * Goals
-    * Allow user to change selected month
 * Timezone disparity between local time and server time.
     * https://docs.djangoproject.com/en/dev/topics/i18n/timezones/
 * integrate with facebook when posting runs
