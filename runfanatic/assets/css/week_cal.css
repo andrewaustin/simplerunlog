@@ -4,12 +4,19 @@ table#weekcal {
     width: 100%;
 }
 
-table#weekcal div.day {
+table#weekcal td div.day {
     position: absolute;
     top: 5px;
     right: 5px;
     color: #808080;
-    font-size: .5em;
+    font-size: .65em;
+}
+
+table#weekcal td div.run_event {
+    font-size: .8em;
+    background-color: #EBF3FC;
+    margin: 0;
+    padding: 0;
 }
 
 table#weekcal td th {
@@ -38,10 +45,13 @@ table#weekcal td th {
     transition: all 0.1s ease-in-out;
 }
 
+.bordered th {
+    padding: 10px;
+}
+
 .bordered td, .bordered th {
     border-left: 1px solid #ccc;
     border-top: 1px solid #ccc;
-    padding: 10px;
     text-align: left;
     position: relative;
 }
