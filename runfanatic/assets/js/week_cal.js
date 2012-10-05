@@ -43,7 +43,7 @@ $(document).ready(function() {
 
     var datearray = Array();
     for (var i = 0; i < 7; i++) {
-        var newDate = new Date();
+        var newDate = new Date(startdate);
         newDate.setDate(startdate.getDate() + i );
         datearray.push(newDate);
     }
