@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Run Fanatic - {% block title %}{% endblock %}</title>
+        <title>Simple Run Log - {% block title %}{% endblock %}</title>
         <link href="{{ STATIC_URL }}css/cal.css" rel="stylesheet" type="text/css"/>
         <link href="{{ STATIC_URL }}css/style.css" rel="stylesheet" type="text/css"/>
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/themes/flick/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -12,7 +12,7 @@
     <body>
         <div id="page">
         <div id="header">
-            <h1>run fanatic</h1><h5> the runlog for serious runners</h5>
+            <h1>Simple Run Log</h1><h5> a simple runlog for serious runners</h5>
         </div>
         <div id="sidebar">
             {% if user.is_authenticated %}
