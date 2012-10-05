@@ -7,7 +7,7 @@ from apps.runlog.models import Run
 
 class RunResource(ModelResource):
     class Meta:
-        queryset = Run.objects.all();
+        queryset = Run.objects.all()
         resource_name = 'run'
         authentication = SessionAuthentication()
         authorization = DjangoAuthorization()

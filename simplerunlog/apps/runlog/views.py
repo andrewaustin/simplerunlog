@@ -68,10 +68,12 @@ def index(request):
         return HttpResponseRedirect('/dashboard/')
     return render(request, 'runlog/index.html', {})
 
+
 def public_profile(request, username):
     u = User.objects.get(username=username)
     metrics = get_run_metrics_for_user(u)
     return render(request, 'runlog/public_profile.html', metrics)
+
 
 def get_run_metrics_for_user(user):
     """Helper method to get run stats for a user."""
@@ -122,6 +124,7 @@ def get_run_metrics_for_user(user):
         'units': units,
         }
 
+
 @login_required
 def dashboard(request):
     """View that displays personal run metrics such as weekly milage, the days
@@ -129,12 +132,15 @@ def dashboard(request):
     return render(request, 'runlog/dashboard.html',
             get_run_metrics_for_user(request.user))
 
+
 @login_required
 def runcal(request):
     """View that displays an individuals run calendar. """
 
     now = datetime.datetime.now()
-    day_week_starts = UserProfile.objects.get(user=request.user).day_week_starts
+    day_week_starts = UserProfile.objects.get(
+            user=request.user
+            ).day_week_starts
     month_runs = Run.objects.filter(
             user=request.user,
             date__month=now.month)
@@ -143,6 +149,7 @@ def runcal(request):
 
     return render(request, 'runlog/calendar.html', {'calendar':
         mark_safe(cal_html)})
+
 
 @login_required
 def run(request):
@@ -154,18 +161,22 @@ def run(request):
         if start and end:
             start = datetime.datetime.fromtimestamp(start)
             end = datetime.datetime.fromtimestamp(end)
-            runs = Run.objects.filter(user=request.user, date__range=(start, end))
+            runs = Run.objects.filter(
+                    user=request.user,
+                    date__range=(start, end))
             data = []
             for run in runs:
                 elem = {}
                 elem['start'] = run.date
                 elem['end'] = run.date
-                elem['title'] = "%s mi. in %s:%s:%s" % (run.distance, run.hours,
+                elem['title'] = "%s mi. in %s:%s:%s" % (
+                    run.distance, run.hours,
                     run.minutes, run.seconds)
                 data.append(elem)
             return HttpResponse(dumps(data, cls=DjangoJSONEncoder),
                 mimetype="application/json")
     return HttpResponseRedirect('/')
+
 
 @login_required
 def add(request):
@@ -181,7 +192,7 @@ def add(request):
                     seconds=runForm.cleaned_data['seconds'],
                     distance=runForm.cleaned_data['distance'])
             newRun.save()
-            response = {'id': newRun.pk }
+            response = {'id': newRun.pk}
             return HttpResponse(dumps(response),
                     mimetype="application/json")
         else:
