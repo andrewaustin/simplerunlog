@@ -1,2 +1,2 @@
--r reqs/prod.txt
+-r reqs/dev.txt
 pylibmc==1.2.3
