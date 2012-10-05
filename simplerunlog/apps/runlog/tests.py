@@ -127,11 +127,11 @@ class ViewsTest(TestCase):
         status = self.c.post('/delete/1000000').status_code
         self.assertEquals(status, 404)
 
-    def test_get_add_view_if_authenticated(self):
+    def test_get_add_view_redirects_if_not_POST(self):
         """Add view should return 200 if authenticated."""
         self.c.login(username='user', password='pass')
         status = self.c.get('/add/').status_code
-        self.assertEquals(status, 200)
+        self.assertEquals(status, 302)
 
     def test_get_add_view_if_unauthenticated(self):
         """Add view should return redirect if unauthenticated."""
@@ -150,9 +150,8 @@ class ViewsTest(TestCase):
         response = self.c.post('/add/', {'user': self.user,
             'date': '2011-7-22', 'hours': 0, 'minutes': 19, 'distance': 4})
         self.assertEquals(Run.objects.count(), 0)
-        #The second field should be listed as a key in the form errors dict
-        #becuase the second's field was missing from the post request.
-        self.assertTrue('seconds' in response.context['form'].errors.keys())
+        self.assertEquals("{\"seconds\": [\"This field is required.\"]}",
+                response.content)
 
     def tearDown(self):
         """Destroy any created db objects."""
